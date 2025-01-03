@@ -23,10 +23,12 @@ class PresenceController extends Controller
             ],
             [
                 'time_in' => $request->input('time_in', now()->toTimeString()),
-                'time_out' => $request->input('time_out', null),
+                // N'ajouter l'heure de sortie que si elle est spécifiée
+                'time_out' => $request->filled('time_out') ? $request->input('time_out') : null,
             ]
         );
-
+    
+        // Retourner un message de succès
         return redirect()->back()->with('success', 'Votre présence a été enregistrée.');
     }
     //
